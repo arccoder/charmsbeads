@@ -139,7 +139,9 @@
       }
       .about-intro {
         color: var(--accent) !important;
-        font: 1.2rem/1.4 Georgia, serif;
+        font:
+          1.2rem/1.4 Georgia,
+          serif;
       }
       .about-signoff {
         margin-top: 24px !important;
@@ -190,6 +192,12 @@
         height: auto;
         max-height: 88vh;
         object-fit: contain;
+      }
+      .viewer-label {
+        padding: 10px 16px 14px;
+        color: #fff;
+        text-align: center;
+        font-size: 1.9rem;
       }
       .close {
         position: absolute;
@@ -282,15 +290,17 @@
         <section class="info-card about-card" id="about">
           <h2>About Me ✨</h2>
           <p class="about-intro">
-            Hi! I’m 8 years old, and I love making colorful bracelets that
-            make people smile.
+            Hi! I’m 8 years old, and I love making colorful bracelets that make
+            people smile.
           </p>
           <p>
             I started Charms &amp; Beads because creating something beautiful
             with my own hands is so much fun!
           </p>
           <p>Every bracelet is handmade with love by me.</p>
-          <p class="about-signoff">Thank you for supporting my little venture! 💕</p>
+          <p class="about-signoff">
+            Thank you for supporting my little venture! 💕
+          </p>
           <a class="email" href="mailto:charmsbeadssmiles@gmail.com"
             >Contact me by email</a
           >
@@ -299,6 +309,7 @@
     </main>
     <dialog id="viewer">
       <button class="close" aria-label="Close">×</button><img alt="" />
+      <div class="viewer-label"></div>
     </dialog>
     <script>
       const bracelets = [
@@ -393,6 +404,9 @@
         "IMG_20261014_162012452.jpg",
       ];
       const viewer = document.querySelector("#viewer");
+      function displayName(file) {
+        return file.replace(/^IMG_/, "").replace(/\.[^.]+$/, "");
+      }
       function render(files, id, prefix = "") {
         const grid = document.querySelector("#" + id);
         document.querySelector(
@@ -405,10 +419,12 @@
         ).textContent = `${files.length} images`;
         files.forEach((file) => {
           const figure = document.createElement("figure");
-          figure.innerHTML = `<div class="photo"><img loading="lazy" src="${prefix}${file}" alt="${file}"></div><figcaption>${file}</figcaption>`;
+          const name = displayName(file);
+          figure.innerHTML = `<div class="photo"><img loading="lazy" src="${prefix}${file}" alt="${name}"></div><figcaption>${name}</figcaption>`;
           figure.onclick = () => {
             viewer.querySelector("img").src = prefix + file;
-            viewer.querySelector("img").alt = file;
+            viewer.querySelector("img").alt = name;
+            viewer.querySelector(".viewer-label").textContent = name;
             viewer.showModal();
           };
           grid.append(figure);
