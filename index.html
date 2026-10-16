@@ -1,5 +1,439 @@
 <!doctype html>
-<meta http-equiv="refresh" content="0; url=gallery.html">
-<link rel="canonical" href="gallery.html">
-<title>Charms &amp; Beads</title>
-<p><a href="gallery.html">Open Charms &amp; Beads</a></p>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="logo.png" />
+    <title>Charms &amp; Beads</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #25211f;
+        --muted: #766d67;
+        --line: #e8e0da;
+        --accent: #9b5d4d;
+        --paper: #fcfaf8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font:
+          15px/1.5 system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 36px 6vw 30px;
+        border-bottom: 1px solid var(--line);
+      }
+      .logo {
+        width: 128px;
+        height: 128px;
+        object-fit: contain;
+        border-radius: 50%;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font:
+          clamp(2rem, 5vw, 4rem)/1.05 Georgia,
+          serif;
+        font-weight: 400;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+      }
+      main {
+        width: min(1500px, 88vw);
+        margin: 0 auto;
+        padding: 40px 0 70px;
+      }
+      section {
+        margin-bottom: 58px;
+      }
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      h2 {
+        margin: 0;
+        font:
+          400 clamp(1.45rem, 3vw, 2.2rem) Georgia,
+          serif;
+      }
+      .count {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+      }
+      figure {
+        margin: 0;
+        cursor: zoom-in;
+      }
+      .photo {
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        background: #f1ece8;
+        border-radius: 5px;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        transition: transform 0.25s ease;
+      }
+      figure:hover img {
+        transform: scale(1.035);
+      }
+      figcaption {
+        padding: 8px 2px 0;
+        color: var(--muted);
+        font-size: 0.75rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 68px;
+      }
+      .info-card {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(24px, 4vw, 44px);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+      }
+      .info-card.about-card {
+        border-color: #e7c8b9;
+        background: linear-gradient(145deg, #fffaf5, #fff 58%, #f7ece7);
+      }
+      .about-card::after {
+        content: "✦  ♡  ✦";
+        position: absolute;
+        top: 18px;
+        right: 24px;
+        color: #d49a82;
+        letter-spacing: 0.3em;
+        font-size: 1.1rem;
+      }
+      .about-intro {
+        color: var(--accent) !important;
+        font:
+          1.2rem/1.4 Georgia,
+          serif;
+      }
+      .about-signoff {
+        margin-top: 24px !important;
+        color: var(--ink) !important;
+        font-family: "Segoe Print", "Bradley Hand", cursive;
+        font-size: 1.05rem;
+      }
+      .info-card h2 {
+        margin-bottom: 14px;
+      }
+      .info-card p {
+        margin: 0 0 16px;
+        color: var(--muted);
+      }
+      .info-card ul {
+        margin: 8px 0 22px;
+        padding-left: 1.2em;
+        color: var(--muted);
+      }
+      .info-card li {
+        margin: 6px 0;
+      }
+      .details {
+        display: grid;
+        gap: 8px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .email {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      dialog {
+        width: min(94vw, 1100px);
+        max-height: 94vh;
+        padding: 0;
+        border: 0;
+        border-radius: 8px;
+        background: #171413;
+        box-shadow: 0 20px 70px #0008;
+      }
+      dialog::backdrop {
+        background: #000b;
+      }
+      dialog img {
+        width: 100%;
+        height: auto;
+        max-height: 88vh;
+        object-fit: contain;
+      }
+      .viewer-label {
+        padding: 10px 16px 14px;
+        color: #fff;
+        text-align: center;
+        font-size: 1.9rem;
+      }
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 14px;
+        border: 0;
+        color: white;
+        background: #0008;
+        border-radius: 50%;
+        width: 34px;
+        height: 34px;
+        font-size: 22px;
+        cursor: pointer;
+      }
+      @media (max-width: 520px) {
+        header {
+          padding: 34px 6vw 26px;
+        }
+        main {
+          width: 88vw;
+          padding-top: 28px;
+        }
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .info-grid {
+          grid-template-columns: 1fr;
+          margin-top: 42px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img class="logo" src="logo.png" alt="charms &amp; beads logo" />
+      <div>
+        <h1>charms &amp; beads</h1>
+        <p>Browse our handmade collection.</p>
+      </div>
+    </header>
+    <main>
+      <section>
+        <div class="section-head">
+          <h2>Individual Bracelets</h2>
+          <span class="count" id="bracelet-count"></span>
+        </div>
+        <div class="grid" id="bracelets"></div>
+      </section>
+      <section>
+        <div class="section-head">
+          <h2>Sets</h2>
+          <span class="count" id="set-count"></span>
+        </div>
+        <div class="grid" id="sets"></div>
+      </section>
+      <section>
+        <div class="section-head">
+          <h2>Keychains</h2>
+          <span class="count" id="keychain-count"></span>
+        </div>
+        <div class="grid" id="keychains"></div>
+      </section>
+      <div class="info-grid">
+        <section class="info-card" id="custom-orders">
+          <h2>Custom Orders</h2>
+          <p>
+            Looking for a gift nobody else will have?<br />I’ll make it special,
+            just for you!<br />Customize: Style, Color, Words, and more.
+          </p>
+          <p><strong>Perfect for:</strong></p>
+          <ul>
+            <li>🎁 Holiday gifts</li>
+            <li>🎂 Birthday party favors</li>
+            <li>🎉 Teacher and friend presents</li>
+            <li>🎈 Class parties and special occasions</li>
+          </ul>
+          <strong>Order By Email:</strong>
+          <a class="email" href="mailto:charmsbeadssmiles@gmail.com"
+            >charmsbeadssmiles@gmail.com</a
+          >
+          <div class="details">
+            <strong>Terms:</strong>
+            <ul>
+              <li>50% advance payment</li>
+              <li>Minimum order: 10 units</li>
+            </ul>
+          </div>
+        </section>
+        <section class="info-card about-card" id="about">
+          <h2>About Me ✨</h2>
+          <p class="about-intro">
+            Hi! I’m 8 years old, and I love making colorful bracelets that make
+            people smile.
+          </p>
+          <p>
+            I started Charms &amp; Beads because creating something beautiful
+            with my own hands is so much fun!
+          </p>
+          <p>Every bracelet is handmade with love by me.</p>
+          <p class="about-signoff">
+            Thank you for supporting my little venture! 💕
+          </p>
+          <a class="email" href="mailto:charmsbeadssmiles@gmail.com"
+            >Contact me by email</a
+          >
+        </section>
+      </div>
+    </main>
+    <dialog id="viewer">
+      <button class="close" aria-label="Close">×</button><img alt="" />
+      <div class="viewer-label"></div>
+    </dialog>
+    <script>
+      const bracelets = [
+        "20261016_091309.jpg",
+        "20261016_091325.jpg",
+        "20261016_091343.jpg",
+        "20261016_091357.jpg",
+        "IMG_20261014_161119857.jpeg",
+        "IMG_20261014_161146320.jpg",
+        "IMG_20261014_161202969.jpg",
+        "IMG_20261014_161240715.jpg",
+        "IMG_20261014_161304207.jpg",
+        "IMG_20261014_161316076.jpg",
+        "IMG_20261014_161332655.jpg",
+        "IMG_20261014_161347665.jpg",
+        "IMG_20261014_161400200.jpg",
+        "IMG_20261014_161413561.jpg",
+        "IMG_20261014_161430171.jpg",
+        "IMG_20261014_161443087.jpg",
+        "IMG_20261014_161455174.jpg",
+        "IMG_20261014_161508250.jpg",
+        "IMG_20261014_161518824.jpg",
+        "IMG_20261014_161537691.jpg",
+        "IMG_20261014_161550453.jpg",
+        "IMG_20261014_161601170.jpg",
+        "IMG_20261014_161615685.jpg",
+        "IMG_20261014_161629782.jpg",
+        "IMG_20261014_161639045.jpg",
+        "IMG_20261014_161654335.jpg",
+        "IMG_20261014_161703774.jpg",
+        "IMG_20261014_161718642.jpg",
+        "IMG_20261014_161729052.jpg",
+        "IMG_20261014_161743244.jpg",
+        "IMG_20261014_161754861.jpg",
+        "IMG_20261014_161811806.jpg",
+        "IMG_20261014_161819412.jpg",
+        "IMG_20261014_161831213.jpg",
+        "IMG_20261014_162058927.jpg",
+        "IMG_20261014_162108956.jpg",
+        "IMG_20261014_162121404.jpg",
+        "IMG_20261014_162132835.jpg",
+        "IMG_20261014_162147312.jpg",
+        "IMG_20261014_162203052.jpg",
+        "IMG_20261014_162211103.jpg",
+        "IMG_20261014_162258657.jpg",
+        "IMG_20261014_162309930.jpg",
+        "IMG_20261014_162336871.jpg",
+        "IMG_20261014_162342395.jpg",
+        "IMG_20261014_162357556.jpg",
+        "IMG_20261014_162423281.jpg",
+        "IMG_20261014_162542709.jpg",
+        "IMG_20261014_162555965.jpg",
+        "IMG_20261014_162602253.jpg",
+        "IMG_20261014_162612772.jpg",
+        "IMG_20261014_162626597.jpg",
+        "IMG_20261014_162641909.jpg",
+        "IMG_20261014_162652698.jpg",
+        "IMG_20261014_162737492.jpg",
+        "IMG_20261014_162750689.jpg",
+        "IMG_20261014_162801022.jpg",
+        "IMG_20261014_162810454.jpg",
+        "IMG_20261014_162821199.jpg",
+      ];
+      const sets = [
+        "20261016_091457.jpg",
+        "20261016_091517.jpg",
+        "20261016_091549.jpg",
+        "20261016_091617.jpg",
+        "20261016_091651.jpg",
+        "20261016_091706.jpg",
+        "20261016_091722.jpg",
+        "20261016_091743.jpg",
+        "20261016_091751.jpg",
+        "20261016_091759.jpg",
+        "20261016_091809.jpg",
+        "20261016_091819.jpg",
+        "20261016_091858.jpg",
+        "20261016_092109.jpg",
+        "20261016_145934.jpg",
+      ];
+      const keychains = [
+        "20261016_092019.jpg",
+        "IMG_20261014_161914330.jpg",
+        "IMG_20261014_161918227.jpg",
+        "IMG_20261014_161922547.jpg",
+        "IMG_20261014_161947711.jpg",
+        "IMG_20261014_161956223.jpg",
+        "IMG_20261014_162004940.jpg",
+        "IMG_20261014_162012452.jpg",
+      ];
+      const viewer = document.querySelector("#viewer");
+      function displayName(file) {
+        return file.replace(/^IMG_/, "").replace(/\.[^.]+$/, "");
+      }
+      function render(files, id, prefix = "") {
+        const grid = document.querySelector("#" + id);
+        document.querySelector(
+          "#" +
+            {
+              bracelets: "bracelet-count",
+              sets: "set-count",
+              keychains: "keychain-count",
+            }[id],
+        ).textContent = `${files.length} images`;
+        files.forEach((file) => {
+          const figure = document.createElement("figure");
+          const name = displayName(file);
+          figure.innerHTML = `<div class="photo"><img loading="lazy" src="${prefix}${file}" alt="${name}"></div><figcaption>${name}</figcaption>`;
+          figure.onclick = () => {
+            viewer.querySelector("img").src = prefix + file;
+            viewer.querySelector("img").alt = name;
+            viewer.querySelector(".viewer-label").textContent = name;
+            viewer.showModal();
+          };
+          grid.append(figure);
+        });
+      }
+      render(bracelets, "bracelets", "individual/");
+      render(sets, "sets", "sets/");
+      render(keychains, "keychains", "keychains/");
+      viewer.querySelector(".close").onclick = () => viewer.close();
+      viewer.onclick = (e) => {
+        if (e.target === viewer) viewer.close();
+      };
+    </script>
+  </body>
+</html>
