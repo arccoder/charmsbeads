@@ -110,6 +110,69 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+      .info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 68px;
+      }
+      .info-card {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(24px, 4vw, 44px);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #fff;
+      }
+      .info-card.about-card {
+        border-color: #e7c8b9;
+        background: linear-gradient(145deg, #fffaf5, #fff 58%, #f7ece7);
+      }
+      .about-card::after {
+        content: "✦  ♡  ✦";
+        position: absolute;
+        top: 18px;
+        right: 24px;
+        color: #d49a82;
+        letter-spacing: 0.3em;
+        font-size: 1.1rem;
+      }
+      .about-intro {
+        color: var(--accent) !important;
+        font: 1.2rem/1.4 Georgia, serif;
+      }
+      .about-signoff {
+        margin-top: 24px !important;
+        color: var(--ink) !important;
+        font-family: "Segoe Print", "Bradley Hand", cursive;
+        font-size: 1.05rem;
+      }
+      .info-card h2 {
+        margin-bottom: 14px;
+      }
+      .info-card p {
+        margin: 0 0 16px;
+        color: var(--muted);
+      }
+      .info-card ul {
+        margin: 8px 0 22px;
+        padding-left: 1.2em;
+        color: var(--muted);
+      }
+      .info-card li {
+        margin: 6px 0;
+      }
+      .details {
+        display: grid;
+        gap: 8px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .email {
+        color: var(--accent);
+        font-weight: 600;
+      }
       dialog {
         width: min(94vw, 1100px);
         max-height: 94vh;
@@ -153,6 +216,10 @@
           grid-template-columns: repeat(2, 1fr);
           gap: 12px;
         }
+        .info-grid {
+          grid-template-columns: 1fr;
+          margin-top: 42px;
+        }
       }
     </style>
   </head>
@@ -186,6 +253,49 @@
         </div>
         <div class="grid" id="keychains"></div>
       </section>
+      <div class="info-grid">
+        <section class="info-card" id="custom-orders">
+          <h2>Custom Orders</h2>
+          <p>
+            Looking for a gift nobody else will have?<br />I’ll make it special,
+            just for you!<br />Customize: Style, Color, Words, and more.
+          </p>
+          <p><strong>Perfect for:</strong></p>
+          <ul>
+            <li>🎁 Holiday gifts</li>
+            <li>🎂 Birthday party favors</li>
+            <li>🎉 Teacher and friend presents</li>
+            <li>🎈 Class parties and special occasions</li>
+          </ul>
+          <strong>Order By Email:</strong>
+          <a class="email" href="mailto:charmsbeadssmiles@gmail.com"
+            >charmsbeadssmiles@gmail.com</a
+          >
+          <div class="details">
+            <strong>Terms:</strong>
+            <ul>
+              <li>50% advance payment</li>
+              <li>Minimum order: 10 units</li>
+            </ul>
+          </div>
+        </section>
+        <section class="info-card about-card" id="about">
+          <h2>About Me ✨</h2>
+          <p class="about-intro">
+            Hi! I’m 8 years old, and I love making colorful bracelets that
+            make people smile.
+          </p>
+          <p>
+            I started Charms &amp; Beads because creating something beautiful
+            with my own hands is so much fun!
+          </p>
+          <p>Every bracelet is handmade with love by me.</p>
+          <p class="about-signoff">Thank you for supporting my little venture! 💕</p>
+          <a class="email" href="mailto:charmsbeadssmiles@gmail.com"
+            >Contact me by email</a
+          >
+        </section>
+      </div>
     </main>
     <dialog id="viewer">
       <button class="close" aria-label="Close">×</button><img alt="" />
